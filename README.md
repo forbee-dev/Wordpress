@@ -32,4 +32,5 @@ Retrievs data from the API filter the data and saves the Toplist in the database
 Snippet to add security headers to the website and get an A+ on securityheaders.com
 
 ## Selection of the Month
-Custom Block to show a selection of the month Casinos
+Custom Block to show a selection of the month Casinos.
+This one uses Twig as a template engine
