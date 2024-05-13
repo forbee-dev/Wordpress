@@ -1,0 +1,448 @@
+{
+	"key": "group_65e1af8a33937",
+	"title": "Hero",
+	"fields": [
+		{
+			"key": "field_65e1af8b5b2fa",
+			"label": "Hero Options",
+			"name": "hero_options",
+			"aria-label": "",
+			"type": "repeater",
+			"instructions": "",
+			"required": 0,
+			"conditional_logic": 0,
+			"wrapper": {
+				"width": "",
+				"class": "",
+				"id": ""
+			},
+			"layout": "block",
+			"pagination": 0,
+			"min": 0,
+			"max": 0,
+			"collapsed": "",
+			"button_label": "Add Row",
+			"rows_per_page": 20,
+			"sub_fields": [
+				{
+					"key": "field_65e1affc5b2fb",
+					"label": "MG",
+					"name": "marketing_group",
+					"aria-label": "",
+					"type": "text",
+					"instructions": "",
+					"required": 0,
+					"conditional_logic": 0,
+					"wrapper": {
+						"width": "10",
+						"class": "",
+						"id": ""
+					},
+					"default_value": "",
+					"maxlength": "",
+					"placeholder": "",
+					"prepend": "",
+					"append": "",
+					"parent_repeater": "field_65e1af8b5b2fa"
+				},
+				{
+					"key": "field_65e1b0825b2fc",
+					"label": "Hero",
+					"name": "hero",
+					"aria-label": "",
+					"type": "repeater",
+					"instructions": "",
+					"required": 0,
+					"conditional_logic": 0,
+					"wrapper": {
+						"width": "",
+						"class": "",
+						"id": ""
+					},
+					"layout": "block",
+					"min": 0,
+					"max": 0,
+					"collapsed": "",
+					"button_label": "Add Row",
+					"rows_per_page": 20,
+					"parent_repeater": "field_65e1af8b5b2fa",
+					"sub_fields": [
+						{
+							"key": "field_65e1b361550fe",
+							"label": "Banner",
+							"name": "",
+							"aria-label": "",
+							"type": "tab",
+							"instructions": "",
+							"required": 0,
+							"conditional_logic": 0,
+							"wrapper": {
+								"width": "",
+								"class": "",
+								"id": ""
+							},
+							"placement": "top",
+							"endpoint": 0,
+							"parent_repeater": "field_65e1b0825b2fc"
+						},
+						{
+							"key": "field_65e1b09a5b2fd",
+							"label": "Banner Image Desktop",
+							"name": "banner_image_desktop",
+							"aria-label": "",
+							"type": "image",
+							"instructions": "Recommended size: 1296x380",
+							"required": 0,
+							"conditional_logic": 0,
+							"wrapper": {
+								"width": "50",
+								"class": "",
+								"id": ""
+							},
+							"return_format": "array",
+							"library": "all",
+							"min_width": "",
+							"min_height": "",
+							"min_size": "",
+							"max_width": "",
+							"max_height": "",
+							"max_size": "",
+							"mime_types": "",
+							"preview_size": "medium",
+							"parent_repeater": "field_65e1b0825b2fc"
+						},
+						{
+							"key": "field_65e729046c1f9",
+							"label": "Banner Image Mobile",
+							"name": "banner_image_mobile",
+							"aria-label": "",
+							"type": "image",
+							"instructions": "Recommended size: 425x460",
+							"required": 0,
+							"conditional_logic": 0,
+							"wrapper": {
+								"width": "50",
+								"class": "",
+								"id": ""
+							},
+							"return_format": "array",
+							"library": "all",
+							"min_width": "",
+							"min_height": "",
+							"min_size": "",
+							"max_width": "",
+							"max_height": "",
+							"max_size": "",
+							"mime_types": "",
+							"preview_size": "medium",
+							"parent_repeater": "field_65e1b0825b2fc"
+						},
+						{
+							"key": "field_65e1b0e85b2fe",
+							"label": "Banner Title",
+							"name": "banner_title",
+							"aria-label": "",
+							"type": "text",
+							"instructions": "",
+							"required": 0,
+							"conditional_logic": 0,
+							"wrapper": {
+								"width": "",
+								"class": "",
+								"id": ""
+							},
+							"default_value": "",
+							"maxlength": "",
+							"placeholder": "",
+							"prepend": "",
+							"append": "",
+							"parent_repeater": "field_65e1b0825b2fc"
+						},
+						{
+							"key": "field_65e1b0f35b2ff",
+							"label": "Banner Text",
+							"name": "banner_text",
+							"aria-label": "",
+							"type": "text",
+							"instructions": "",
+							"required": 0,
+							"conditional_logic": 0,
+							"wrapper": {
+								"width": "",
+								"class": "",
+								"id": ""
+							},
+							"default_value": "",
+							"maxlength": "",
+							"placeholder": "",
+							"prepend": "",
+							"append": "",
+							"parent_repeater": "field_65e1b0825b2fc"
+						},
+						{
+							"key": "field_65e1b36f550ff",
+							"label": "CTA",
+							"name": "",
+							"aria-label": "",
+							"type": "tab",
+							"instructions": "",
+							"required": 0,
+							"conditional_logic": 0,
+							"wrapper": {
+								"width": "",
+								"class": "",
+								"id": ""
+							},
+							"placement": "top",
+							"endpoint": 0,
+							"parent_repeater": "field_65e1b0825b2fc"
+						},
+						{
+							"key": "field_65e1b1125b300",
+							"label": "CTA 1",
+							"name": "cta_1",
+							"aria-label": "",
+							"type": "text",
+							"instructions": "",
+							"required": 0,
+							"conditional_logic": 0,
+							"wrapper": {
+								"width": "",
+								"class": "",
+								"id": ""
+							},
+							"default_value": "",
+							"maxlength": "",
+							"placeholder": "",
+							"prepend": "",
+							"append": "",
+							"parent_repeater": "field_65e1b0825b2fc"
+						},
+						{
+							"key": "field_65e1b1245b301",
+							"label": "CTA 1 URL",
+							"name": "cta_1_url",
+							"aria-label": "",
+							"type": "url",
+							"instructions": "",
+							"required": 0,
+							"conditional_logic": 0,
+							"wrapper": {
+								"width": "",
+								"class": "",
+								"id": ""
+							},
+							"default_value": "",
+							"placeholder": "",
+							"parent_repeater": "field_65e1b0825b2fc"
+						},
+						{
+							"key": "field_65e1b1365b302",
+							"label": "CTA 2",
+							"name": "cta_2",
+							"aria-label": "",
+							"type": "text",
+							"instructions": "",
+							"required": 0,
+							"conditional_logic": 0,
+							"wrapper": {
+								"width": "",
+								"class": "",
+								"id": ""
+							},
+							"default_value": "",
+							"maxlength": "",
+							"placeholder": "",
+							"prepend": "",
+							"append": "",
+							"parent_repeater": "field_65e1b0825b2fc"
+						},
+						{
+							"key": "field_65e1b13d5b303",
+							"label": "CTA 2 URL",
+							"name": "cta_2_url",
+							"aria-label": "",
+							"type": "url",
+							"instructions": "",
+							"required": 0,
+							"conditional_logic": 0,
+							"wrapper": {
+								"width": "",
+								"class": "",
+								"id": ""
+							},
+							"default_value": "",
+							"placeholder": "",
+							"parent_repeater": "field_65e1b0825b2fc"
+						},
+						{
+							"key": "field_65e1b37e55100",
+							"label": "CTA Image",
+							"name": "",
+							"aria-label": "",
+							"type": "tab",
+							"instructions": "",
+							"required": 0,
+							"conditional_logic": 0,
+							"wrapper": {
+								"width": "",
+								"class": "",
+								"id": ""
+							},
+							"placement": "top",
+							"endpoint": 0,
+							"parent_repeater": "field_65e1b0825b2fc"
+						},
+						{
+							"key": "field_65e1b1525b304",
+							"label": "Image",
+							"name": "image",
+							"aria-label": "",
+							"type": "image",
+							"instructions": "Recommended size: 380x293",
+							"required": 0,
+							"conditional_logic": 0,
+							"wrapper": {
+								"width": "",
+								"class": "",
+								"id": ""
+							},
+							"return_format": "array",
+							"library": "all",
+							"min_width": "",
+							"min_height": "",
+							"min_size": "",
+							"max_width": "",
+							"max_height": "",
+							"max_size": "",
+							"mime_types": "",
+							"preview_size": "medium",
+							"parent_repeater": "field_65e1b0825b2fc"
+						},
+						{
+							"key": "field_65e1b15b5b305",
+							"label": "Image URL",
+							"name": "image_url",
+							"aria-label": "",
+							"type": "url",
+							"instructions": "",
+							"required": 0,
+							"conditional_logic": 0,
+							"wrapper": {
+								"width": "",
+								"class": "",
+								"id": ""
+							},
+							"default_value": "",
+							"placeholder": "",
+							"parent_repeater": "field_65e1b0825b2fc"
+						}
+					]
+				},
+				{
+					"key": "field_65e1baa524354",
+					"label": "Hero Footer",
+					"name": "",
+					"aria-label": "",
+					"type": "group",
+					"instructions": "",
+					"required": false,
+					"conditional_logic": 0,
+					"wrapper": {
+						"width": "",
+						"class": "",
+						"id": ""
+					},
+					"sub_fields": [],
+					"layout": "block",
+					"parent_repeater": "field_65e1af8b5b2fa"
+				},
+				{
+					"key": "field_65e1bb7324355",
+					"label": "Footer Heading",
+					"name": "footer_heading",
+					"aria-label": "",
+					"type": "text",
+					"instructions": "",
+					"required": 0,
+					"conditional_logic": 0,
+					"wrapper": {
+						"width": "",
+						"class": "",
+						"id": ""
+					},
+					"default_value": "",
+					"maxlength": "",
+					"placeholder": "",
+					"prepend": "",
+					"append": "",
+					"parent_repeater": "field_65e1af8b5b2fa"
+				},
+				{
+					"key": "field_65e1bd5024356",
+					"label": "Bullet Points",
+					"name": "bullet_points",
+					"aria-label": "",
+					"type": "repeater",
+					"instructions": "",
+					"required": 0,
+					"conditional_logic": 0,
+					"wrapper": {
+						"width": "",
+						"class": "",
+						"id": ""
+					},
+					"layout": "table",
+					"pagination": 0,
+					"min": 0,
+					"max": 3,
+					"collapsed": "",
+					"button_label": "Add Row",
+					"rows_per_page": 20,
+					"parent_repeater": "field_65e1af8b5b2fa",
+					"sub_fields": [
+						{
+							"key": "field_65e1bd9124357",
+							"label": "Bullet",
+							"name": "bullet",
+							"aria-label": "",
+							"type": "text",
+							"instructions": "",
+							"required": 0,
+							"conditional_logic": 0,
+							"wrapper": {
+								"width": "",
+								"class": "",
+								"id": ""
+							},
+							"default_value": "",
+							"maxlength": "",
+							"placeholder": "",
+							"prepend": "",
+							"append": "",
+							"parent_repeater": "field_65e1bd5024356"
+						}
+					]
+				}
+			]
+		}
+	],
+	"location": [
+		[
+			{
+				"param": "options_page",
+				"operator": "==",
+				"value": "hero-options"
+			}
+		]
+	],
+	"menu_order": 0,
+	"position": "normal",
+	"style": "default",
+	"label_placement": "top",
+	"instruction_placement": "label",
+	"hide_on_screen": "",
+	"active": true,
+	"description": "",
+	"show_in_rest": 0
+}

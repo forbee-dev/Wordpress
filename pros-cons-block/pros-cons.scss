@@ -1,0 +1,29 @@
+.pros-cons-block {
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #000;
+        border: 1px solid #000;
+        text-align: left;
+        padding: 10px;
+    }
+
+    td {
+        width: 50%;
+        border: 1px solid #000;
+        text-align: left;
+        padding: 10px;
+
+        ul {
+            padding-left: 0;
+            list-style: none;
+            margin-bottom: 0;
+        }
+    }
+
+}

@@ -1,0 +1,237 @@
+.selection-of-the-month {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0 7.5px;
+    gap: 30px;
+
+    @media (max-width: $md) {
+        flex-direction: column;
+        gap: 15px;
+    }
+        
+    @media (min-width: $md) {
+        .card {
+            &:only-child {
+                .casino__img {
+                    width: 30%;
+                    justify-content: center;
+                }
+
+                .casino__info {
+                    flex-direction: unset;
+                    justify-content: space-around;
+                    width: 100%;
+                    align-items: flex-start;
+                }
+            }
+        }
+    }
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    min-height: 305px;
+    border-radius: 8px;
+    background-color: color('element-bg');
+
+    @media (max-width: $md) {
+        margin-bottom: 16 px;
+    }
+
+    .title {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: color('main-1');
+        border-radius: 8px 8px 0 0;
+        color: color('text-alt');
+        padding: 4px 17px;;
+        height: 31px;
+        margin-bottom: 0;
+    }
+
+    .casino {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 8px 24px 0 24px;
+    padding-bottom: 8px;
+    height: 84px;
+    border-bottom: 1px solid #FFF;
+
+        &__img {
+            display: flex;
+            height: 75px;
+            align-items: center;
+            
+            img {
+                max-height: 75px;
+                max-width: 75px;
+            }
+        }
+
+        &__info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+
+        }
+
+        &__name {
+            font-weight: 700;
+            padding: 0 10px;
+            margin: 0;
+        }
+
+        &__stars {
+            display: flex;
+            height: 24px;
+            color: #FCCA03;
+            padding: 0 10px;
+
+            svg{
+                height: 100%;
+            }
+        }
+
+        span {
+            color: #2C2E31;
+            font-size: 14px;
+            line-height: 26px;
+            font-weight: 600;
+            padding-left: 5px;
+        }
+    }
+
+    .bonus { 
+        padding: 12px 24px 0 24px;
+
+        ul {
+            padding: 0;
+            min-height: 90px;
+        }
+        
+        li {
+
+            &::before {
+                display: none;
+            }
+
+            @media (max-width: $md) {
+                font-size: 1.4375em;
+            }
+
+            @media (max-width: $sm) {
+                font-size: 1em;
+                line-height: normal;
+            }
+
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+            font-size: 12px;
+
+            @media (max-width: $lg) {
+                font-size: 0.7em;
+            }
+
+            @media (max-width: $md) {
+                font-size: 1em;
+            }
+
+            @media (max-width: $sm) {
+                font-size: 0.7em;
+            }
+
+        }
+
+        &__points {
+            display: inline-flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            width: 49%;
+            background-color: color('main-1');
+            border-radius: 5px;
+            padding: 5px;
+            margin-bottom: 5px;
+            color: color('text-alt');
+
+            p {
+                margin: 0;
+                padding: 0;
+                font-size: 16px;
+                font-weight: 700;
+
+                @media (max-width: $lg) {
+                    font-size: 13px;
+                }
+    
+                @media (max-width: $md) {
+                    font-size: 16px;
+                }
+    
+                @media (max-width: $sm) {
+                    font-size: 13px;
+                }
+
+                @media (max-width: 390px) {
+                    font-size: 11px;
+                }
+            }
+
+        }
+
+                                
+        &__point {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 40px;
+            max-height: 80px;
+
+            @media (max-width: $desktop) {
+                font-size: 26px;
+            }
+
+            @media (max-width: $lg) {
+                font-size: 20px;
+                line-height: normal;
+            }
+
+            @media (max-width: $md) {
+                font-size: 32px;
+            }
+
+            @media (max-width: $sm) {
+                font-size: 20px;
+            }
+        }
+    }
+
+    .cta {
+        width: 100%;
+        position: relative;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        padding: 12px 24px 12px 24px;
+
+        .wp-block-button {
+            width: 100%;
+        }
+    }
+
+}
+
+.pb-5,
+.py-5,
+.wp-block-group {
+  padding-bottom: 1rem !important;
+}

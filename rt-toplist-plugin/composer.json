@@ -1,0 +1,16 @@
+{
+    "name": "rt-plugins/rt-toplist-plugin",
+    "description": "Raketech TopList Plugin",
+    "keywords": ["raketech", "affiliation", "wordpress", "plugin"],
+    "homepage": "https://gitlab.com/raketech/wordpress/rt-plugins/rt-toplist-plugin",
+    "authors": [
+        {
+            "name": "Tiago Santos",
+            "email": "tiago.santos@raketech.com"
+        }
+    ],
+    "type": "wordpress-plugin",
+    "require": {
+        "php": ">=7.4"
+    }
+}
