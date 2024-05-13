@@ -1,0 +1,85 @@
+.slots-tab-navigation {
+	margin-bottom: 0;
+}
+
+.slots-tab-navigation li {
+	display: inline-block;
+	background: #eee;
+	border: 1px solid #ddd;
+	border-bottom: 0;
+	padding: 10px 15px;
+	margin-bottom: 0;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.slots-tab-navigation li.active {
+	background: #fff;
+	border-color: #fff;
+	cursor: default;
+}
+
+.slots-table {
+    display: none;
+    background: #fff;
+	padding: 10px;
+	margin-bottom: 20px;
+	max-width: 100%;
+}
+
+.slots-table.active {
+    display: block;
+}
+
+.slots-table tr:hover td {
+    background: #eee;
+}
+
+#slots {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#slots thead {
+    text-align: left;
+}
+
+.slots-table button {
+    cursor: pointer;
+    outline: 0;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    color: #0d6efd;
+    border-color: #0d6efd;
+    
+}
+.slots-table button:hover {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.update-list-button {
+    float: right;
+    cursor: pointer;
+    outline: 0;
+    font-weight: 400;
+    text-align: center;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    border-radius: .25rem;
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.offline-checkbox {
+    text-align: center;
+    vertical-align: middle;
+}
