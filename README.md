@@ -19,6 +19,10 @@ Custom made Hero Carousell
 ## Limit Post Revisions
 Snippet to limit the number of post revisions
 
+## Programmatic Content Changer
+Plugin to change content programmatically
+Update post titles, meta titles, and meta descriptions using Yoast SEO from a CSV file.
+
 ## Pros and Cons Block
 Custom made Pros and Cons block
 
