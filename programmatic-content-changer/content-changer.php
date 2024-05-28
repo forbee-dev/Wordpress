@@ -23,6 +23,9 @@ function content_updater_register_settings() {
         'default' => 10,
         'sanitize_callback' => 'absint' // Ensure batch size is a positive integer
     ));
+
+    // Register the headless setting
+    register_setting('content_updater_settings_group', 'content_updater_headless');
 }
 
 // Add settings link on plugin page
@@ -64,6 +67,15 @@ function content_updater_settings_page_content() {
                         <p class="description">Number of items to process per batch.</p>
                     </td>
                 </tr>
+                <tr valign="top">
+                    <th scope="row">Headless WordPress</th>
+                    <td>
+                        <label for="content_updater_headless">
+                            <input type="checkbox" name="content_updater_headless" id="content_updater_headless" value="1" <?php checked(1, get_option('content_updater_headless'), true); ?>>
+                            Check if the site is headless WordPress
+                        </label>
+                    </td>
+                </tr>
             </table>
             <?php submit_button(); ?>
         </form>
@@ -100,64 +112,123 @@ function content_updater_page(){
             wp_die('Invalid nonce. Please try again.');
         }
 
-        content_updater_handle_file_upload($_FILES['csv_file']);
+        $errors = content_updater_handle_file_upload($_FILES['csv_file']);
+
+        // Store errors in a transient
+        set_transient('content_updater_errors', $errors, 30);
+    }
+
+    // Retrieve and display errors from the transient
+    $errors = get_transient('content_updater_errors');
+    if (!empty($errors)) {
+        echo '<div class="notice notice-error">';
+        echo '<p><strong>Errors:</strong></p>';
+        echo '<ul>';
+        foreach ($errors as $error) {
+            echo '<li>' . esc_html($error) . '</li>';
+        }
+        echo '</ul>';
+        echo '</div>';
+
+        // Delete the transient after displaying the errors
+        delete_transient('content_updater_errors');
     }
 }
 
-
 function content_updater_handle_file_upload($file){
+    $errors = array();
+
     // Check for errors
     if ($file['error']) {
-        wp_die('File upload error.');
+        $errors[] = 'File upload error.';
     }
 
     // Limit file types and validate the uploaded file
     $allowed_types = array('text/csv');
     if (!in_array($file['type'], $allowed_types)) {
-        wp_die('Invalid file type. Please upload a valid CSV file.');
+        $errors[] = 'Invalid file type. Please upload a valid CSV file.';
+    }
+
+    if (!empty($errors)) {
+        return $errors;
     }
 
     $csv_path = $file['tmp_name'];
-    $file_handle = fopen($csv_path, 'r');
-
-    // Skip the header line if your CSV has a header
-    fgetcsv($file_handle);
-
+    $delimiters = array(',', ';');  // Supported delimiters
     $batch_size = content_updater_get_batch_size(); // Use the function to get batch size
     $batch_data = array();
 
-    while (($data = fgetcsv($file_handle)) !== false) {
-        $url              = esc_url_raw($data[0]);
-        $post_id          = url_to_postid($url); // Convert URL to post ID
-        if(!$post_id) {
-            error_log('No post ID found for URL: ' . $url);
-            continue; // Skip if no post ID found for the URL
-        }
-        $post_title       = sanitize_text_field($data[1]);
-        $meta_title       = sanitize_text_field($data[2]);
-        $meta_description = sanitize_textarea_field($data[3]);
+    foreach ($delimiters as $delimiter) {
+        $file_handle = fopen($csv_path, 'r');
+        
+        // Skip the header line if your CSV has a header
+        fgetcsv($file_handle, 0, $delimiter);
 
-        // Add data to the batch
-        $batch_data[] = array(
-            'post_id' => $post_id,
-            'post_title' => $post_title,
-            'meta_title' => $meta_title,
-            'meta_description' => $meta_description
-        );
+        while (($data = fgetcsv($file_handle, 0, $delimiter)) !== false) {
+            if (count($data) === 4) {  // Check if the row has the expected number of fields
+                $url     = esc_url_raw($data[0]);
+                $post_id = content_updater_url_to_postid($url); // Convert URL to post ID
+                if(!$post_id) {
+                    $errors[] = 'No post ID found for URL: ' . $url; // Add error message to the array
+                    continue; // Skip if no post ID found for the URL
+                }
+                $post_title       = sanitize_text_field($data[1]);
+                $meta_title       = sanitize_text_field($data[2]);
+                $meta_description = sanitize_textarea_field($data[3]);
 
-        // If batch size is reached, process the batch
-        if (count($batch_data) === $batch_size) {
-            content_updater_process_batch($batch_data);
-            $batch_data = array(); // Reset batch data
+                // Add data to the batch
+                $batch_data[] = array(
+                    'post_id'          => $post_id,
+                    'post_title'       => $post_title,
+                    'meta_title'       => $meta_title,
+                    'meta_description' => $meta_description
+                );
+
+                // If batch size is reached, process the batch
+                if (count($batch_data) === $batch_size) {
+                    content_updater_process_batch($batch_data);
+                    $batch_data = array(); // Reset batch data
+                }
+            }
         }
+
+        fclose($file_handle);
     }
-
-    fclose($file_handle);
 
     // Process any remaining items
     if (!empty($batch_data)) {
         content_updater_process_batch($batch_data);
     }
+
+    return $errors;
+}
+
+function content_updater_url_to_postid($url) {
+    $post_id = url_to_postid($url);;
+
+    if (!$post_id) {
+        // If url_to_postid() fails, try using get_page_by_path()
+        $path = wp_parse_url($url, PHP_URL_PATH);
+        $path = trim($path, '/');
+
+        // Get all registered post types
+        $post_types = get_post_types(array(
+            'public'   => true,
+            '_builtin' => false,
+        ), 'names');
+
+        // Add 'post' and 'page' to the post types array
+        $post_types['post'] = 'post';
+        $post_types['page'] = 'page';
+
+        $post = get_page_by_path($path, OBJECT, $post_types);
+
+        if ($post) {
+            $post_id = $post->ID;
+        }
+    }
+
+    return $post_id;
 }
 
 function content_updater_process_batch($batch_data) {
