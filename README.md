@@ -30,8 +30,10 @@
 **Impact**: Provided a clear and structured way to display the advantages and disadvantages of a product or service.
 
 ## Slots Plugin
-**Description**: Integrated the Slots Plugin to consume slots from SlotsLibrary within a WordPress website.  
-**Impact**: Enabled seamless retrieval and integration of slots and providers, enhancing the site's functionality.
+The Slots Plugin serves as an integration tool for consuming slots from SlotsLibrary within a WordPress website. It facilitates the retrieval of all available slots and providers for seamless integration.
+
+## SportsIndex Plugin
+SportsIndex Plugin serves as an integration tool for consuming Sports Stats from SportsIndex within a WordPress website. It facilitates the retrieval of all available Matches and Tournaments for seamless integration.
 
 ## Toplist Plugin
 **Description**: Developed a plugin to retrieve data from an API, filter it, and save the toplist in the database for display.  
@@ -41,10 +43,28 @@
 **Description**: Added security headers to the website.  
 **Impact**: Achieved an A+ rating on securityheaders.com, significantly enhancing site security.
 
-## Selection of the Month Block
-**Description**: Created a custom block to display the selection of the month casinos, using Twig as a template engine.  
-**Impact**: Delivered a dynamic and visually appealing feature, improving user engagement.
+## Selection of the Month
+Custom Block to show a selection of the month Casinos.
+This one uses Twig as a template engine
 
-## Headless WordPress Migration for SJ
-**Description**: Assisted in the migration to a headless WordPress solution.  
-**Impact**: Enabled decoupled architecture, improving performance and flexibility.
+# BRAG LIST
+
+## Headless WordPress Migration
+* Description: Assisted in the migration to a headless WordPress solution.
+* Impact: Enabled decoupled architecture, improving performance and flexibility.
+
+## Server Migration
+* Description: Provided assistance with server migration.
+* Impact: Ensured a smooth transition with minimal downtime and improved server performance.
+
+## Core Web Vitals Improvement
+* Description: Improved Core Web Vitals metrics from scores in the 60s to 90+ on mobile.
+* Impact: Enhanced site performance, user experience, and SEO rankings.
+
+## NPM and GULP Integration
+* Description: Integrated NPM and GULP into a project to compile, merge, and minify CSS, SCSS, and JS files.
+* Impact: Streamlined the development workflow, resulting in optimized and efficient code deployment.
+
+## Reverse Engineering and Deployment
+* Description: Reverse engineered migration functions created by another developer, improved them, and successfully deployed.
+* Impact: Enhanced code quality and ensured a successful migration and deployment process.

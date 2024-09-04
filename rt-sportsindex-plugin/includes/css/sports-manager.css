@@ -1,0 +1,109 @@
+.matches-tab-navigation {
+    margin-bottom: 0;
+}
+
+.matches-tab-navigation li {
+    display: inline-block;
+    background: #eee;
+    border: 1px solid #ddd;
+    border-bottom: 0;
+    padding: 10px 15px;
+    margin-bottom: 0;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.matches-tab-navigation li.active {
+    background: #fff;
+    border-color: #fff;
+    cursor: default;
+}
+
+.matches-table {
+    display: none;
+    background: #fff;
+    padding: 10px;
+    margin-bottom: 20px;
+    max-width: 100%;
+}
+
+.matches-table.active {
+    display: block;
+}
+
+.matches-table tr:hover td {
+    background: #eee;
+}
+
+#matches {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.matches-table button {
+    cursor: pointer;
+    outline: 0;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    color: #0d6efd;
+    border-color: #0d6efd;
+
+}
+
+.matches-table button:hover {
+    color: #fff;
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+}
+
+.matches-table .td-center {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.matches-table .button-cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#matches th:nth-child(1),
+#matches td:nth-child(1) {
+    width: 30%;
+    min-width: 200px;
+}
+
+#matches th:nth-child(3),
+#matches td:nth-child(3) {
+    width: 30%;
+    min-width: 200px;
+}
+
+.match-add-button,
+.match-publish-button,
+.match-update-button {
+    display: inline-block;
+    min-width: 80px;
+    margin: 0 5px;
+}
+
+.update-list-button {
+    float: right;
+    cursor: pointer;
+    outline: 0;
+    font-weight: 400;
+    text-align: center;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 6px 12px;
+    border-radius: .25rem;
+    color: #0d6efd;
+    border-color: #0d6efd;
+}
