@@ -1,12 +1,12 @@
 {
     "name": "rt-plugins/rt-sportsindex-plugin",
-    "description": "Sports plugin for Raketech",
-    "keywords": ["raketech", "sports", "wordpress", "plugin"],
-    "homepage": "git@gitlab.com:raketech/wordpress/rt-plugins/rt-sportsindex-plugin.git",
+    "description": "Sports plugin for Rt",
+    "keywords": ["Rt", "sports", "wordpress", "plugin"],
+    "homepage": "git@gitlab.com:Rt/wordpress/rt-plugins/rt-sportsindex-plugin.git",
     "authors": [
         {
             "name": "Tiago Santos",
-            "email": "tiago.santos@raketech.com"
+            "email": "tiago.santos@Rt.com"
         }
     ],
     "type": "wordpress-plugin",

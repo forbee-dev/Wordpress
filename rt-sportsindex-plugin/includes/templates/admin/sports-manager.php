@@ -8,7 +8,7 @@ require_once __DIR__ . '/../../class-rt-sports-api.php';
 require_once __DIR__ . '/../../class-rt-tournaments-ajax.php';
 require_once __DIR__ . '/../../class-rt-matches-ajax.php';
 
-$this->sports_API = new Raketech_Sports_API( $sportsApiUrl );
+$this->sports_API = new Rt_Sports_API( $sportsApiUrl );
 $get_all_tournaments = $this->sports_API->fetchTournamentsFromAPI();
 $get_all_matches = $this->sports_API->fetchMatchesFromAPI();
 

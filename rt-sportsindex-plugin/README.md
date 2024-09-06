@@ -1,5 +1,5 @@
-# Raketech SportsIndex Plugin
-The Raketech SportsIndex Plugin serves as an integration tool for consuming Sports Stats from SportsIndex within a WordPress website. It facilitates the retrieval of all available Matches and Tournaments for seamless integration.
+# Rt SportsIndex Plugin
+The Rt SportsIndex Plugin serves as an integration tool for consuming Sports Stats from SportsIndex within a WordPress website. It facilitates the retrieval of all available Matches and Tournaments for seamless integration.
 
 # Requirements
 - ACF Pro plugin installed

@@ -22,25 +22,25 @@ function set_global_variables() {
     }
 }
 
-if(!class_exists('Raketech_Sports')) {
-    class Raketech_Sports {
+if(!class_exists('Rt_Sports')) {
+    class Rt_Sports {
         
         /**
         * The single instance of the class.
         *
-        * @var Raketech_Sports
+        * @var Rt_Sports
         * @since 1.0
         */
         protected static $_instance = null;
 
         /**
-        * Main Raketech_Sports Instance.
+        * Main Rt_Sports Instance.
         *
-        * Ensures only one instance of Raketech_Sports is loaded or can be loaded.
+        * Ensures only one instance of Rt_Sports is loaded or can be loaded.
         *
         * @since 1.0
         * @static
-        * @return Raketech_Sports - Main instance.
+        * @return Rt_Sports - Main instance.
         */
         public static function get_instance() {
             if ( is_null( self::$_instance ) ) {
@@ -74,7 +74,7 @@ if(!class_exists('Raketech_Sports')) {
          * @access private
          */
         private function hooks() {
-            register_deactivation_hook( __FILE__, array( 'Raketech_Sports', 'deactivate' ) );
+            register_deactivation_hook( __FILE__, array( 'Rt_Sports', 'deactivate' ) );
         }
 
         /**
@@ -98,7 +98,7 @@ if(!class_exists('Raketech_Sports')) {
 			add_action( 'wp_ajax_tournament_action', array( 'TournamentsActionHandler', 'handle_request' ));
             add_action( 'wp_ajax_matches_action', array( 'MatchesActionHandler', 'handle_matches_request' ), 10, 0 );
             
-            add_action( 'wp_ajax_update_list', array( 'Raketech_Sports_API', 'clearSportsCache' ) );
+            add_action( 'wp_ajax_update_list', array( 'Rt_Sports_API', 'clearSportsCache' ) );
 
 			// Hook to modify ACF JSON load path
 			add_filter( 'acf/settings/load_json', array( $this, 'add_acf_json_load_point' ) );
@@ -307,9 +307,9 @@ if(!class_exists('Raketech_Sports')) {
 /**
  * Check if ACF is installed and activated
  */
-function raketech_sports_check_acf() {
+function Rt_sports_check_acf() {
 	if ( is_admin() && current_user_can( 'activate_plugins' ) && ! class_exists( 'ACF' ) ) {
-		add_action( 'admin_notices', 'raketech_sports_missing_acf_notice' );
+		add_action( 'admin_notices', 'Rt_sports_missing_acf_notice' );
 
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 
@@ -318,13 +318,13 @@ function raketech_sports_check_acf() {
 		}
 	}
 }
-add_action( 'admin_init', 'raketech_sports_check_acf' );
+add_action( 'admin_init', 'Rt_sports_check_acf' );
 
 /**
  * Display notice if ACF is not installed and activated
  */
-function raketech_sports_missing_acf_notice() {
-	echo '<div class="notice notice-error"><p>Advanced Custom Fields plugin is required for the Raketech SportsIndex plugin. Please install and activate Advanced Custom Fields.</p></div>';
+function Rt_sports_missing_acf_notice() {
+	echo '<div class="notice notice-error"><p>Advanced Custom Fields plugin is required for the Rt SportsIndex plugin. Please install and activate Advanced Custom Fields.</p></div>';
 }
 
 /**
@@ -399,4 +399,4 @@ function get_all_post_slugs() {
 }
 
 // Initialize the plugin
-Raketech_Sports::get_instance();
+Rt_Sports::get_instance();

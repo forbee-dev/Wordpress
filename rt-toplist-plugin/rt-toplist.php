@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Raketech TopList Plugin
+ * Plugin Name: Rt TopList Plugin
  * Description: Plugin to display top lists from affiliation cloud
  * Version: 1.0.0
  * Author: Tiago Santos

@@ -31,7 +31,7 @@ if (!class_exists('MatchessActionHandler')){
             $action = sanitize_text_field($_POST['action_type']);
 
             global $sportsApiUrl;
-            $sports_API = new Raketech_Sports_API( $sportsApiUrl );
+            $sports_API = new Rt_Sports_API( $sportsApiUrl );
             $match = $sports_API->getMatchesByKey($key);
             
 			if ( !$match ) {

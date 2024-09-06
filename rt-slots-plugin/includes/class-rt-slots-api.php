@@ -1,6 +1,6 @@
 <?php 
-if(!class_exists('Raketech_Slots_API')) {
-    class Raketech_Slots_API {
+if(!class_exists('Rt_Slots_API')) {
+    class Rt_Slots_API {
         private $slotApiUrl;
 
         public function __construct( $apiUrl ) {

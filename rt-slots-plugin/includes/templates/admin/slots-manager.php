@@ -9,7 +9,7 @@ require_once __DIR__ . '/../../class-rt-slots-api.php';
 require_once __DIR__ . '/../../class-rt-slots-ajax.php';
 require_once __DIR__ . '/../../class-rt-providers-ajax.php';
 
-$this->slots_API = new Raketech_Slots_API( $slotApiUrl );
+$this->slots_API = new Rt_Slots_API( $slotApiUrl );
 $get_all_slots = $this->slots_API->getSlots();
 $get_all_providers = $this->slots_API->getProviders();
 

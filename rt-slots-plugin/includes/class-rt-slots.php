@@ -23,25 +23,25 @@ function set_global_variables() {
     }
 }
 
-if(!class_exists('Raketech_Slots')) {
-    class Raketech_Slots {
+if(!class_exists('Rt_Slots')) {
+    class Rt_Slots {
         
         /**
         * The single instance of the class.
         *
-        * @var Raketech_Slots
+        * @var Rt_Slots
         * @since 1.0
         */
         protected static $_instance = null;
 
         /**
-        * Main Raketech_Slots Instance.
+        * Main Rt_Slots Instance.
         *
-        * Ensures only one instance of Raketech_Slots is loaded or can be loaded.
+        * Ensures only one instance of Rt_Slots is loaded or can be loaded.
         *
         * @since 1.0
         * @static
-        * @return Raketech_Slots - Main instance.
+        * @return Rt_Slots - Main instance.
         */
         public static function get_instance() {
             if ( is_null( self::$_instance ) ) {
@@ -74,7 +74,7 @@ if(!class_exists('Raketech_Slots')) {
          * @access private
          */
         private function hooks() {
-            register_deactivation_hook( __FILE__, array( 'Raketech_Slots', 'deactivate' ) );
+            register_deactivation_hook( __FILE__, array( 'Rt_Slots', 'deactivate' ) );
         }
 
         /**
@@ -98,7 +98,7 @@ if(!class_exists('Raketech_Slots')) {
 			add_action( 'wp_ajax_slot_action', array( 'SlotActionHandler', 'handle_request' ), 10, 0 );
             add_action( 'wp_ajax_provider_action', array( 'ProviderActionHandler', 'handle_providers_request' ), 10, 0 );
             
-            add_action( 'wp_ajax_update_list', array( 'Raketech_Slots_API', 'clearSlotsCache' ) );
+            add_action( 'wp_ajax_update_list', array( 'Rt_Slots_API', 'clearSlotsCache' ) );
 
 			// Hook to modify ACF JSON load path
 			add_filter( 'acf/settings/load_json', array( $this, 'add_acf_json_load_point' ) );
@@ -288,9 +288,9 @@ if(!class_exists('Raketech_Slots')) {
 /**
  * Check if ACF is installed and activated
  */
-function raketech_slots_check_acf() {
+function Rt_slots_check_acf() {
 	if ( is_admin() && current_user_can( 'activate_plugins' ) && ! class_exists( 'ACF' ) ) {
-		add_action( 'admin_notices', 'raketech_slots_missing_acf_notice' );
+		add_action( 'admin_notices', 'Rt_slots_missing_acf_notice' );
 
 		deactivate_plugins( plugin_basename( __FILE__ ) );
 
@@ -299,13 +299,13 @@ function raketech_slots_check_acf() {
 		}
 	}
 }
-add_action( 'admin_init', 'raketech_slots_check_acf' );
+add_action( 'admin_init', 'Rt_slots_check_acf' );
 
 /**
  * Display notice if ACF is not installed and activated
  */
-function raketech_slots_missing_acf_notice() {
-	echo '<div class="notice notice-error"><p>Advanced Custom Fields plugin is required for the Raketech Slots plugin. Please install and activate Advanced Custom Fields.</p></div>';
+function Rt_slots_missing_acf_notice() {
+	echo '<div class="notice notice-error"><p>Advanced Custom Fields plugin is required for the Rt Slots plugin. Please install and activate Advanced Custom Fields.</p></div>';
 }
 
 /**
@@ -385,4 +385,4 @@ function get_all_post_slugs() {
 
 
 // Initialize the plugin
-Raketech_Slots::get_instance();
+Rt_Slots::get_instance();

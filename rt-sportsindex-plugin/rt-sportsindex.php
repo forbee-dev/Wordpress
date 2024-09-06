@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Raketech SportsIndex Plugin
+ * Plugin Name: Rt SportsIndex Plugin
  * Description: Plugin that integrates with the provided API to dynamically generate and manage content for Sports. 
  * Version: 1.0.0
  * Author: Tiago Santos
@@ -13,4 +13,4 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 require_once plugin_dir_path( __FILE__ ) . 'includes/class-rt-sports.php';
 
 // Initialize the plugin.
-add_action( 'plugins_loaded', array( 'Raketech_Sports', 'get_instance' ) );
+add_action( 'plugins_loaded', array( 'Rt_Sports', 'get_instance' ) );

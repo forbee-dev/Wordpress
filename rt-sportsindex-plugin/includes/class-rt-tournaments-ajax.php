@@ -31,7 +31,7 @@ if (!class_exists('TournamentsActionHandler')){
             $action = sanitize_text_field($_POST['action_type']);
 
             global $sportsApiUrl;
-            $sports_API = new Raketech_Sports_API( $sportsApiUrl );
+            $sports_API = new Rt_Sports_API( $sportsApiUrl );
             $tournament = $sports_API->getTournamentById($id);
             
 			if ( !$tournament ) {

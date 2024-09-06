@@ -28,7 +28,7 @@ if (!class_exists('ProviderActionHandler')){
             $id = sanitize_text_field($_POST['id'] ?? '');
 
 			global $slotApiUrl;
-			$slots_API = new Raketech_Slots_API( $slotApiUrl );
+			$slots_API = new Rt_Slots_API( $slotApiUrl );
             $provider = $slots_API->getProviderById($id);
 
             if ( !$provider ) {

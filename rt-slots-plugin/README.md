@@ -1,5 +1,5 @@
-# Raketech Slots Plugin
-The Raketech Slots Plugin serves as an integration tool for consuming slots from SlotsLibrary within a WordPress website. It facilitates the retrieval of all available slots and providers for seamless integration.
+# Rt Slots Plugin
+The Rt Slots Plugin serves as an integration tool for consuming slots from SlotsLibrary within a WordPress website. It facilitates the retrieval of all available slots and providers for seamless integration.
 
 # Requirements
 - ACF Pro plugin installed

@@ -32,7 +32,7 @@ if (!class_exists('SlotActionHandler')){
             $action = sanitize_text_field($_POST['action_type']);
 
             global $slotApiUrl;
-            $slots_API = new Raketech_Slots_API( $slotApiUrl );
+            $slots_API = new Rt_Slots_API( $slotApiUrl );
             $slot = $slots_API->getSlotBySlug($slug);
             
 			if ( !$slot ) {
@@ -232,7 +232,7 @@ if (!class_exists('SlotActionHandler')){
 			$provider_id = $post_arr['meta_input']['provider_id'];
 
 			// Fetch additional provider details
-			$slots_API = new Raketech_Slots_API( $slotApiUrl );
+			$slots_API = new Rt_Slots_API( $slotApiUrl );
 			$provider_details = $slots_API->getProviderById($provider_id);
 
 			if ( !$provider_details ) {
