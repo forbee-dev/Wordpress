@@ -281,7 +281,7 @@
         },
         {
             "key": "field_657ac14b07b5c",
-            "label": "RTP",
+            "label": "RtP",
             "name": "",
             "aria-label": "",
             "type": "tab",
@@ -299,8 +299,8 @@
         },
         {
             "key": "field_657ac14b07ba0",
-            "label": "RTP",
-            "name": "rtp",
+            "label": "RtP",
+            "name": "Rtp",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -321,8 +321,8 @@
         },
         {
             "key": "field_657ac14b07bde",
-            "label": "RTP Variable",
-            "name": "rtp_variable",
+            "label": "RtP Variable",
+            "name": "Rtp_variable",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -343,8 +343,8 @@
         },
         {
             "key": "field_657ac14b07c1c",
-            "label": "RTP Variable Max",
-            "name": "rtp_variable_max",
+            "label": "RtP Variable Max",
+            "name": "Rtp_variable_max",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -365,8 +365,8 @@
         },
         {
             "key": "field_657ac14b07c59",
-            "label": "RTP Variable Min",
-            "name": "rtp_variable_min",
+            "label": "RtP Variable Min",
+            "name": "Rtp_variable_min",
             "aria-label": "",
             "type": "text",
             "instructions": "",

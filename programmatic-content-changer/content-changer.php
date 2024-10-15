@@ -97,7 +97,7 @@ function content_updater_page(){
     // HTML for the page content, file upload form
     echo '<div class="wrap">';
     echo '<h1>' . esc_html(get_admin_page_title()) . '</h1>';
-    echo '<form action="" method="post" enctype="multipart/form-data">';
+    echo '<form action="" method="post" enctype="multipaRt/form-data">';
     echo '<input type="hidden" name="content_updater_nonce" value="' . wp_create_nonce('content_updater') . '">';
     echo '<input type="file" name="csv_file" />';
     echo '<input type="submit" value="Upload CSV" name="submit">';
@@ -154,7 +154,7 @@ function content_updater_handle_file_upload($file){
     }
 
     $csv_path = $file['tmp_name'];
-    $delimiters = array(',', ';');  // Supported delimiters
+    $delimiters = array(',', ';');  // SuppoRted delimiters
     $batch_size = content_updater_get_batch_size(); // Use the function to get batch size
     $batch_data = array();
 
@@ -167,7 +167,7 @@ function content_updater_handle_file_upload($file){
         while (($data = fgetcsv($file_handle, 0, $delimiter)) !== false) {
             if (count($data) === 4) {  // Check if the row has the expected number of fields
                 $url     = esc_url_raw($data[0]);
-                $post_id = content_updater_url_to_postid($url); // Convert URL to post ID
+                $post_id = content_updater_url_to_postid($url); // ConveRt URL to post ID
                 if(!$post_id) {
                     $errors[] = 'No post ID found for URL: ' . $url; // Add error message to the array
                     continue; // Skip if no post ID found for the URL

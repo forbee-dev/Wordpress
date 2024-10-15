@@ -1,5 +1,5 @@
 <?php
-// If this file is called directly, abort.
+// If this file is called directly, aboRt.
 if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Get the ACF fields from the options page and set the global variables accordingly
@@ -9,13 +9,13 @@ function set_connection_global_variables() {
     global $tournamentsCPT, $matchesCPT;
 
     if ( function_exists( 'get_field' ) ) {
-        $tournamentsCPT = sanitize_key(strtolower(get_field('tournaments_post_type', 'option') ?: 'tournaments'));
-        $matchesCPT = sanitize_key(strtolower(get_field('matches_post_type', 'option') ?: 'matches'));
+        $tournamentsCPT = sanitize_key(stRtolower(get_field('tournaments_post_type', 'option') ?: 'tournaments'));
+        $matchesCPT = sanitize_key(stRtolower(get_field('matches_post_type', 'option') ?: 'matches'));
     }
 }
 
-if (!class_exists('RT_Tournament_Matches_Connection')) {
-    class RT_Tournament_Matches_Connection {
+if (!class_exists('Rt_Tournament_Matches_Connection')) {
+    class Rt_Tournament_Matches_Connection {
 
         public function __construct($tournamentsCPT, $matchesCPT) {
             $this->tournamentsCPT = $tournamentsCPT;
@@ -49,12 +49,12 @@ if (!class_exists('RT_Tournament_Matches_Connection')) {
             $connections = array();
 
             foreach ($tournaments as $tournament) {
-                $tournament_shortname = get_post_meta($tournament->ID, 'tournament_shortname', true);
+                $tournament_shoRtname = get_post_meta($tournament->ID, 'tournament_shoRtname', true);
                 $tournament_data = array(
                     'id' => get_post_meta($tournament->ID, 'tournament_id', true),
                     'name' => $tournament->post_title,
                     'slug' => $tournament->post_name,
-                    'shortname' => $tournament_shortname,
+                    'shoRtname' => $tournament_shoRtname,
                     'matches' => array()
                 );
 
@@ -64,23 +64,23 @@ if (!class_exists('RT_Tournament_Matches_Connection')) {
                     'posts_per_page' => -1,
                     'meta_query' => array(
                         array(
-                            'key' => 'match_tournament_short_name',
-                            'value' => $tournament_shortname,
+                            'key' => 'match_tournament_shoRt_name',
+                            'value' => $tournament_shoRtname,
                         )
                     )
                 ));
 
                 foreach ($matches as $match) {
-                    $sport = get_post_meta($match->ID, 'match_sport', true);
-                    if (!isset($tournament_data['matches'][$sport])) {
-                        $tournament_data['matches'][$sport] = array();
+                    $spoRt = get_post_meta($match->ID, 'match_spoRt', true);
+                    if (!isset($tournament_data['matches'][$spoRt])) {
+                        $tournament_data['matches'][$spoRt] = array();
                     }
-                    $tournament_data['matches'][$sport][] = array(
+                    $tournament_data['matches'][$spoRt][] = array(
                         'key' => get_post_meta($match->ID, 'match_key', true),
                         'name' => $match->post_title,
                         'sub_title' => get_post_meta($match->ID, 'match_sub_title', true),
                         'slug' => $match->post_name,
-                        'tournament_short_name' => get_post_meta($match->ID, 'match_tournament_short_name', true)
+                        'tournament_shoRt_name' => get_post_meta($match->ID, 'match_tournament_shoRt_name', true)
                     );
                 }
 
@@ -95,7 +95,7 @@ if (!class_exists('RT_Tournament_Matches_Connection')) {
          */
         public function add_tournament_matches_dashboard() {
             add_submenu_page(
-                'sports-settings',
+                'spoRts-settings',
                 'Tournament-Matches Connections',
                 'Tournament-Matches',
                 'manage_options',
@@ -111,26 +111,26 @@ if (!class_exists('RT_Tournament_Matches_Connection')) {
             $connections = $this->get_tournament_matches_connections(new WP_REST_Request());
             $data = $connections->get_data();
 
-            // Group all matches by sport and keep track of all tournaments
-            $sports = array();
+            // Group all matches by spoRt and keep track of all tournaments
+            $spoRts = array();
             $all_tournaments = array();
             foreach ($data as $tournament) {
                 $all_tournaments[$tournament['id']] = $tournament;
                 if (empty($tournament['matches'])) {
                     // If no matches, add to 'No Matches' category
-                    if (!isset($sports['No Matches'])) {
-                        $sports['No Matches'] = array();
+                    if (!isset($spoRts['No Matches'])) {
+                        $spoRts['No Matches'] = array();
                     }
-                    $sports['No Matches'][] = array(
+                    $spoRts['No Matches'][] = array(
                         'tournament' => $tournament,
                         'matches' => array()
                     );
                 } else {
-                    foreach ($tournament['matches'] as $sport => $matches) {
-                        if (!isset($sports[$sport])) {
-                            $sports[$sport] = array();
+                    foreach ($tournament['matches'] as $spoRt => $matches) {
+                        if (!isset($spoRts[$spoRt])) {
+                            $spoRts[$spoRt] = array();
                         }
-                        $sports[$sport][] = array(
+                        $spoRts[$spoRt][] = array(
                             'tournament' => $tournament,
                             'matches' => $matches
                         );
@@ -138,8 +138,8 @@ if (!class_exists('RT_Tournament_Matches_Connection')) {
                 }
             }
 
-            // Sort sports alphabetically, but keep 'No Matches' at the end
-            uksort($sports, function($a, $b) {
+            // SoRt spoRts alphabetically, but keep 'No Matches' at the end
+            uksoRt($spoRts, function($a, $b) {
                 if ($a === 'No Matches') return 1;
                 if ($b === 'No Matches') return -1;
                 return strcasecmp($a, $b);
@@ -148,8 +148,8 @@ if (!class_exists('RT_Tournament_Matches_Connection')) {
             ?>
             <div class="wrap">
                 <h1>Tournament-Matches Connections</h1>
-                <?php foreach ($sports as $sport => $tournaments): ?>
-                    <h2><?php echo esc_html($sport); ?></h2>
+                <?php foreach ($spoRts as $spoRt => $tournaments): ?>
+                    <h2><?php echo esc_html($spoRt); ?></h2>
                     <table class="wp-list-table widefat fixed striped">
                         <thead>
                             <tr>

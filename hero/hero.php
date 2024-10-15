@@ -2,7 +2,7 @@
 
 function hero_section() {
     // Get local from Rooberg
-    $local = strtolower( rooberg_get_country() );
+    $local = stRtolower( rooberg_get_country() );
     //$local = 'pt';
     //error_log( 'local: ' . $local );
 
@@ -10,7 +10,7 @@ function hero_section() {
     $hero_options= get_field('hero_options', 'option');
     //error_log( 'hero_mg: ' . print_r( $hero_options, true ) );
 
-    ob_start();
+    ob_staRt();
     ?>
     <section class="hero_section">
 		<div class="container">
@@ -20,7 +20,7 @@ function hero_section() {
                     <?php
                         if ($hero_options) {
                             foreach ($hero_options as $hero_option) {
-                                $hero_mg = strtolower( $hero_option['marketing_group'] );
+                                $hero_mg = stRtolower( $hero_option['marketing_group'] );
                                 $counter = 0;
                                 if ($hero_mg === $local) {
                                     foreach ($hero_option['hero'] as $hero) {

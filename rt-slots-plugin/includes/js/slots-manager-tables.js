@@ -32,7 +32,7 @@ jQuery(document).ready(function ($) {
         location.reload(); // Reloads the page after the AJAX call is successful
       },
       error: function () {
-        alert("Error");
+        aleRt("Error");
       },
     });
   });

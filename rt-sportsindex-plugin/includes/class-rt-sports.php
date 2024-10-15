@@ -1,7 +1,7 @@
 <?php
 /**
  * The core plugin class.
- *
+ * 
  */
 
 // If this file is called directly, abort.
@@ -11,7 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 add_action( 'acf/init', 'set_global_variables' );
 function set_global_variables() {
-    global $sportsApiUrl, $tournamentsCPTSlug, $tournamentsCPT, $matchesCPTSlug, $matchesCPT;
+    global $sportsApiUrl, $tournamentsCPTSlug, $tournamentsCPT, $matchesCPTSlug, $matchesCPT, $site_specific_options, $activate_ocb_specific_settings ;
 
     if ( function_exists( 'get_field' ) ) {
         $sportsApiUrl = get_field( 'sports_index_url', 'option' ) ?: '';
@@ -19,6 +19,8 @@ function set_global_variables() {
         $tournamentsCPT = strtolower( get_field( 'tournaments_post_type', 'option' ) ?: 'tournaments' );
         $matchesCPTSlug = strtolower( get_field( 'matches_post_type_slug', 'option' ) ?: 'matches' );
         $matchesCPT = strtolower( get_field( 'matches_post_type', 'option' ) ?: 'matches' );
+        $site_specific_options = get_field('site_specific_custom_options', 'option');
+        $activate_ocb_specific_settings = $site_specific_options['activate_ocb_specific_settings'] ?? false;
     }
 }
 
@@ -97,6 +99,9 @@ if(!class_exists('Rt_Sports')) {
 
 			add_action( 'wp_ajax_tournament_action', array( 'TournamentsActionHandler', 'handle_request' ));
             add_action( 'wp_ajax_matches_action', array( 'MatchesActionHandler', 'handle_matches_request' ), 10, 0 );
+            // Add the AJAX action for fetching upcoming matches
+            add_action('wp_ajax_fetch_upcoming_matches', array('MatchesActionHandler', 'handle_fetch_upcoming_matches'));
+            add_action('wp_ajax_nopriv_fetch_upcoming_matches', array('MatchesActionHandler', 'handle_fetch_upcoming_matches'));
             
             add_action( 'wp_ajax_update_list', array( 'Rt_Sports_API', 'clearSportsCache' ) );
 
@@ -104,8 +109,7 @@ if(!class_exists('Rt_Sports')) {
 			add_filter( 'acf/settings/load_json', array( $this, 'add_acf_json_load_point' ) );
             // Hook to modify ACF JSON Save path
             add_filter('acf/settings/save_json', array($this, 'add_acf_json_save_point'));
-
-		}
+        }
 
         /**
          * Fired when the plugin is initialized.
@@ -142,6 +146,15 @@ if(!class_exists('Rt_Sports')) {
                 'manage_options',
                 'sports-manager',
                 [$this, 'sports_manager_page']
+            );
+
+            add_submenu_page(
+                'sports-settings',
+                'Update Matches',
+                'Update Matches',
+                'manage_options',
+                'update-matches',
+                [$this, 'update_matches_page']
             );
         }
         
@@ -191,7 +204,11 @@ if(!class_exists('Rt_Sports')) {
          * Register the custom post type for Sports.
          */
         public function register_post_type() {
-            global $tournamentsCPT, $tournamentsCPTSlug, $matchesCPT, $matchesCPTSlug;
+            global $tournamentsCPT, $tournamentsCPTSlug, $matchesCPT, $matchesCPTSlug, $activate_ocb_specific_settings;
+
+            $rewrite_rule = $activate_ocb_specific_settings 
+                ? [ "slug" => $matchesCPTSlug.'/%tournament%/%matches%', 'with_front' => false ]
+                : [ "slug" => $matchesCPTSlug, 'with_front' => false ];
 
             register_post_type(
                 $tournamentsCPT,
@@ -210,9 +227,9 @@ if(!class_exists('Rt_Sports')) {
                     ],
                     'public' => true,
                     'publicly_queryable' => true,
-                    'supports' => [ 'title', 'editor', 'thumbnail', 'excerpt', 'tags', 'revisions' ],
+                    'supports' => [ 'title', 'editor', 'thumbnail', 'excerpt', 'tags', 'revisions', 'author' ],
                     'capability_type' => 'page',
-                    'rewrite' => [ "slug" => $tournamentsCPTSlug ],
+                    'rewrite' => [ "slug" => $tournamentsCPTSlug, 'with_front' => false ],
                     'menu_icon' => 'dashicons-games',
                     'has_archive' => false,
                     'show_in_rest' => true,
@@ -237,9 +254,9 @@ if(!class_exists('Rt_Sports')) {
                     ],
                     'public' => true,
                     'publicly_queryable' => true,
-                    'supports' => [ 'title', 'editor', 'thumbnail', 'excerpt', 'tags', 'revisions' ],
+                    'supports' => [ 'title', 'editor', 'thumbnail', 'excerpt', 'tags', 'revisions', 'author' ],
                     'capability_type' => 'page',
-                    'rewrite' => [ "slug" => $matchesCPTSlug ],
+                    'rewrite' => $rewrite_rule,
                     'menu_icon' => 'dashicons-games',
                     'has_archive' => false,
                     'show_in_rest' => true,
@@ -290,6 +307,7 @@ if(!class_exists('Rt_Sports')) {
                 //styles
                 wp_enqueue_style('sports-manager-css', plugin_dir_url(__FILE__) . 'css/sports-manager.css', [], '1.0.0');
                 wp_enqueue_style('data-table-css', 'https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css', [], '1.0.0');
+                wp_enqueue_style('jquery-ui-style', 'https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', array(), '1.12.1');
                 
                 //scripts
                 wp_enqueue_script('sports-manager-js', plugin_dir_url(__FILE__) . 'js/sports-manager.js', [], '1.0.0', true);
@@ -297,9 +315,29 @@ if(!class_exists('Rt_Sports')) {
                     'nonce' => wp_create_nonce('sports_manager_nonce'),
                     'ajax_url' => admin_url('admin-ajax.php')
                 ));
-                wp_enqueue_script('sports-manager-tables-js', plugin_dir_url(__FILE__) . 'js/sports-manager-tables.js', ['jquery'], '1.0.0', true);
+                wp_enqueue_script('sports-manager-tables-js', plugin_dir_url(__FILE__) . 'js/sports-manager-tables.js', ['jquery', 'jquery-ui-datepicker'], '1.0.0', true);
                 wp_enqueue_script('data-table-js', 'https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js', [], '1.0.0', true);
             }
+        }
+
+        // Add this method to your class
+        public function update_matches_page() {
+            if (isset($_POST['update_matches'])) {
+                if (class_exists('MatchesActionHandler') && method_exists('MatchesActionHandler', 'update_matches_data')) {
+                    MatchesActionHandler::update_matches_data(true);
+                    echo '<div class="updated"><p>Matches updated successfully!</p></div>';
+                } else {
+                    echo '<div class="error"><p>Unable to update matches. Required class or method not found.</p></div>';
+                }
+            }
+            ?>
+            <div class="wrap">
+                <h1>Update Matches</h1>
+                <form method="post">
+                    <input type="submit" name="update_matches" class="button button-primary" value="Update Matches">
+                </form>
+            </div>
+            <?php
         }
     }
 }

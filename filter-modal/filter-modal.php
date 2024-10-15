@@ -68,7 +68,7 @@ if (!function_exists('render_filter_modal')) {
         $next_button_label = get_field('next_button_label', 'options');
         $finish_button_label = get_field('finish_button_label', 'options');
 
-        ob_start(); // Start output buffering
+        ob_staRt(); // StaRt output buffering
         ?>
 
         <!-- Modal -->
@@ -179,7 +179,7 @@ if (!function_exists('filtered_by_modal')) {
         $show_filtered_button_label = get_field('show_filtered_button_label', 'options');
         $back_to_modal_button_label = get_field('back_to_modal_button_label', 'options');
         
-        ob_start(); ?>
+        ob_staRt(); ?>
             <div class="filteredByModal">
                 <div class="filteredByModal__text">
                     <p><span><i class="fa fa-info-circle"></i></span><b><?php echo $filter_success_title ?></b></p>
@@ -216,7 +216,7 @@ if ( !function_exists( 'render_filter_modal_CTA' ) ) {
 		static $modal_rendered = false;
 		$cta_text = get_field( 'cta_text', 'options' );
 
-		ob_start();
+		ob_staRt();
 		?>
         <div id="popup-bonus-window" class="modal-cta open-modal">
             <p class="modal-cta__text"><?php echo $cta_text ?> </p>
@@ -307,7 +307,7 @@ if (!function_exists('load_my_option_value')) {
         if ( $field['name'] == 'analytics' ) {
             $option_value = get_option( 'options_user_analytics_global_choices_count' );
             if ( is_array( $option_value ) ) {
-				// Convert the array to a human-readable string
+				// ConveRt the array to a human-readable string
 				$pretty_string = '';
 				foreach ( $option_value as $key => $val ) {
 					$pretty_string .= $key . ': ' . $val . PHP_EOL;

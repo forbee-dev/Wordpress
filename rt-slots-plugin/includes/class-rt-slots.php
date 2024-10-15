@@ -1,7 +1,7 @@
 <?php
 /**
  * The core plugin class.
- *
+ * 
  */
 
 // If this file is called directly, abort.
@@ -100,15 +100,17 @@ if(!class_exists('Rt_Slots')) {
             
             add_action( 'wp_ajax_update_list', array( 'Rt_Slots_API', 'clearSlotsCache' ) );
 
-			// Hook to modify ACF JSON load path
-			add_filter( 'acf/settings/load_json', array( $this, 'add_acf_json_load_point' ) );
+            // Hook to modify ACF JSON load path
+            add_filter( 'acf/settings/load_json', array( $this, 'add_acf_json_load_point' ) );
             // Hook to modify ACF JSON Save path
             add_filter('acf/settings/save_json', array($this, 'add_acf_json_save_point'));
 
             // Slotjava custom options hook
-			add_filter( 'acf/load_field/name=post_types', 'my_acf_add_post_types_choices' );
+            add_filter( 'acf/load_field/name=post_types', 'my_acf_add_post_types_choices' );
 
-		}
+            // Call the new method
+            add_action( 'init', array( $this, 'register_ajax_actions' ) );
+        }
 
         /**
          * Fired when the plugin is initialized.
@@ -256,6 +258,7 @@ if(!class_exists('Rt_Slots')) {
                         'new_item_name' => __( 'New Casino Software Name' ),
                         'menu_name' => __( 'Casino Software' ),
                     ],
+                    'rewrite' => [ 'slug' => 'software' ],
                     'hierarchical' => true,
                     'show_in_rest' => true,
                     'show_ui' => true,
@@ -280,6 +283,16 @@ if(!class_exists('Rt_Slots')) {
                     'post_type' => $postType));
                 wp_enqueue_script( 'slots-manager-tables-js', plugin_dir_url( __FILE__ ) . 'js/slots-manager-tables.js', [ 'jquery' ], '1.0.0', true );
                 wp_enqueue_script('data-table-js', 'https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js', [], '1.0.0', true);        
+            }
+        }
+
+        public function register_ajax_actions() {
+            static $actions_registered = false;
+            
+            if (!$actions_registered) {
+                add_action('wp_ajax_slot_action', array('SlotActionHandler', 'handle_request'));
+                add_action('wp_ajax_provider_action', array('ProviderActionHandler', 'handle_providers_request'));
+                $actions_registered = true;
             }
         }
     }

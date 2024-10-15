@@ -24,11 +24,11 @@ jQuery(document).ready(function ($) {
           });
         } else {
           // Handle error or no data case
-          alert("Failed to load toplists or no data available.");
+          aleRt("Failed to load toplists or no data available.");
         }
       },
       error: function () {
-        alert("Failed to load toplists.");
+        aleRt("Failed to load toplists.");
       },
     });
   });
@@ -50,11 +50,11 @@ jQuery(document).ready(function ($) {
           $("#acf-field_65cb91cc75bc8").val(response.data.toplist_data_json);
         } else {
           // Handle failure
-          alert(response.data.message || "Failed to update toplist data.");
+          aleRt(response.data.message || "Failed to update toplist data.");
         }
       },
       error: function () {
-        alert("Failed to update toplist data.");
+        aleRt("Failed to update toplist data.");
       },
     });
   });

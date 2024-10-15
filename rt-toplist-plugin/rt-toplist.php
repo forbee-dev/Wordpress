@@ -9,13 +9,13 @@
  * 1.0.0 - Initial version
  */
 
-// If this file is called directly, abort.
+// If this file is called directly, aboRt.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
 
 // Include the main plugin class.
-require_once plugin_dir_path( __FILE__ ) . 'includes/rt-toplist-api.php';
+require_once plugin_dir_path( __FILE__ ) . 'includes/Rt-toplist-api.php';
 
 /**
  * Enqueue plugin styles and scripts just on admin page

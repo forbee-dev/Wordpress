@@ -1,0 +1,16 @@
+{
+    "name": "Rt-plugins/Rt-slots-plugin",
+    "description": "Slots plugin for Rt",
+    "keywords": ["Rt", "slots", "wordpress", "plugin"],
+    "homepage": "https://gitlab.com/Rt/wordpress/Rt-plugins/Rt-slots-plugin",
+    "authors": [
+        {
+            "name": "Tiago Santos",
+            "email": "tiago.santos@Rt.com"
+        }
+    ],
+    "type": "wordpress-plugin",
+    "require": {
+        "php": ">=7.4"
+    }
+}

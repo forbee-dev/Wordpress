@@ -13,7 +13,7 @@ const modalOpenButton = document.querySelectorAll(".open-modal");
 const dotsContainer = document.querySelector(".dots");
 const tagsList = document.getElementById("tagsList");
 const moreBtn = document.querySelector(".see-more-casinos");
-const allRows = document.querySelectorAll(".content-bonuses > .main-article");
+const allRows = document.querySelectorAll(".content-bonuses > .main-aRticle");
 
 
 let currentStep = 1;

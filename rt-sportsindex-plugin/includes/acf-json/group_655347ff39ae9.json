@@ -1,11 +1,11 @@
 {
     "key": "group_655347ff39ae9",
-    "title": "Options: Sports Settings",
+    "title": "Options: SpoRts Settings",
     "fields": [
         {
             "key": "field_65534801b7d4c",
-            "label": "Sports Index URL",
-            "name": "sports_index_url",
+            "label": "SpoRts Index URL",
+            "name": "spoRts_index_url",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -217,6 +217,28 @@
                     "placeholder": "",
                     "prepend": "",
                     "append": ""
+                },
+                {
+                    "key": "field_66f513700ec21",
+                    "label": "Activate OCB Specific Settings",
+                    "name": "activate_ocb_specific_settings",
+                    "aria-label": "",
+                    "type": "true_false",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "readonly": 0,
+                    "message": "",
+                    "default_value": 0,
+                    "allow_in_bindings": 1,
+                    "ui_on_text": "Yes",
+                    "ui_off_text": "No",
+                    "ui": 1
                 }
             ]
         }
@@ -226,7 +248,7 @@
             {
                 "param": "options_page",
                 "operator": "==",
-                "value": "sports-settings"
+                "value": "spoRts-settings"
             }
         ]
     ],
@@ -239,5 +261,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1723215755
+    "modified": 1727338902
 }

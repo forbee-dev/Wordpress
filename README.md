@@ -2,7 +2,7 @@
 
 ## ACF Read Only
 **Description**: Added a read-only field setting to Advanced Custom Fields (ACF).  
-**Impact**: Enhanced the flexibility of ACF by allowing certain fields to be read-only, improving data integrity.
+**Impact**: Enhanced the flexibility of ACF by allowing ceRtain fields to be read-only, improving data integrity.
 
 ## Approver Post Meta Box
 **Description**: Implemented a Reviewer/Approver meta box for posts.  
@@ -32,8 +32,8 @@
 ## Slots Plugin
 The Slots Plugin serves as an integration tool for consuming slots from SlotsLibrary within a WordPress website. It facilitates the retrieval of all available slots and providers for seamless integration.
 
-## SportsIndex Plugin
-SportsIndex Plugin serves as an integration tool for consuming Sports Stats from SportsIndex within a WordPress website. It facilitates the retrieval of all available Matches and Tournaments for seamless integration.
+## SpoRtsIndex Plugin
+SpoRtsIndex Plugin serves as an integration tool for consuming SpoRts Stats from SpoRtsIndex within a WordPress website. It facilitates the retrieval of all available Matches and Tournaments for seamless integration.
 
 ## Toplist Plugin
 **Description**: Developed a plugin to retrieve data from an API, filter it, and save the toplist in the database for display.  
@@ -46,6 +46,16 @@ SportsIndex Plugin serves as an integration tool for consuming Sports Stats from
 ## Selection of the Month
 Custom Block to show a selection of the month Casinos.
 This one uses Twig as a template engine
+
+## Video Block
+This block provides a flexible and SEO-friendly way to embed YouTube videos in a WordPress site, with options for custom thumbnails and metadata.
+It loads just the thumbnail and only load Youtube script when you click on it.
+
+## Casino Bonus Block
+Complex "Mega Block", consisting of 10 sub-blocks, each with various functionalities to present casinos and bonuses in a highly interactive and flexible layout.  
+
+## HCMS Transients
+Transients soltution for a Headless Wordpress website
 
 # BRAG LIST
 
@@ -68,3 +78,19 @@ This one uses Twig as a template engine
 ## Reverse Engineering and Deployment
 * Description: Reverse engineered migration functions created by another developer, improved them, and successfully deployed.
 * Impact: Enhanced code quality and ensured a successful migration and deployment process.
+
+## Help Fixing Issues and Migrating Databases on a Multi-Site WordPress for American Reward Sites
+* Description: Assisted in troubleshooting and resolving various issues on a WordPress multi-site setup, including database migration tasks.  
+* Impact: Ensured data integrity and improved site stability across multiple sites, minimizing downtime and improving user experience.
+
+## Backend Development for Headless WordPress
+* Description: Led backend development effoRts for a headless WordPress project, ensuring seamless integration with frontend components.  
+* Impact: Delivered a performant and scalable backend, enabling fast loading times and improved user interaction on the frontend.
+
+## PaRticipation in Refinement Meetings for Task Evaluation and Sprint Planning
+* Description: Actively contributed to refinement meetings to evaluate upcoming tasks, assess requirements, and plan the next development sprints.  
+* Impact: Improved team alignment and task prioritization, leading to efficient sprint planning and on-time delivery of key features.
+
+## PaRticipation in Roundtable as PaRt of a Close Multiskilled Team
+* Description: Became an integral member of the Project Roundtable, a multi-skilled team focused on delivering rapid improvements and features to the project.  
+* Impact: Facilitated faster development cycles, improved collaboration across various disciplines, and ensured timely feature rollouts with high quality.

@@ -1,31 +1,27 @@
+// SpoRts Manager JavaScript
+
 // Getting elements
-
-let buttonNewMatches = document.getElementById("buttonNewMatches");
 let buttonTournaments = document.getElementById("buttonTournaments");
-let matchesWrapper = document.getElementById("matchesWrapper");
 let tournamentWrapper = document.getElementById("tournamentWrapper");
+let buttonUpcomingMatches = document.getElementById("buttonUpcomingMatches");
+let upcomingMatchesWrapper = document.getElementById("upcomingMatchesWrapper");
 
-// Adding click event listener to buttonNewMatchs
-buttonNewMatches.addEventListener("click", function () {
-  buttonNewMatches.classList.add("active");
-  matchesWrapper.classList.add("active");
-  buttonTournaments.classList.remove("active");
-  tournamentWrapper.classList.remove("active");
-});
-
-// Adding click event listener to buttonTournaments
+// Adding click event listeners
 buttonTournaments.addEventListener("click", function () {
-  buttonTournaments.classList.add("active");
-  tournamentWrapper.classList.add("active");
-  buttonNewMatches.classList.remove("active");
-  matchesWrapper.classList.remove("active");
+  activateTab(buttonTournaments, tournamentWrapper);
 });
 
-///////MATCHES///////
-/**
- * Fetches the slugs of custom post type
- *
- */
+buttonUpcomingMatches.addEventListener("click", function () {
+  activateTab(buttonUpcomingMatches, upcomingMatchesWrapper);
+});
+
+function activateTab(activeButton, activeWrapper) {
+  [buttonTournaments, buttonUpcomingMatches].forEach(btn => btn.classList.remove("active"));
+  [tournamentWrapper, upcomingMatchesWrapper].forEach(wrapper => wrapper.classList.remove("active"));
+  activeButton.classList.add("active");
+  activeWrapper.classList.add("active");
+}
+
 async function fetchCustomPostTypeSlugs() {
   try {
     let allPosts = [];
@@ -59,7 +55,7 @@ function applyButtonLogic(fetchedSlugs) {
   const lowerCaseFetchedSlugs = fetchedSlugs.map((item) => (item && item.slug ? item.slug.toLowerCase() : ""));
 
   document
-    .querySelectorAll(".match-add-button, .match-publish-button, .match-update-button")
+    .querySelectorAll(".match-add-button, .match-publish-button, .match-update-button, .upcoming-match-add-button, .upcoming-match-publish-button, .upcoming-match-update-button")
     .forEach((button) => {
       const buttonSlug = button.dataset.slug.toLowerCase();      
       const slugExists = lowerCaseFetchedSlugs.includes(buttonSlug);
@@ -67,7 +63,7 @@ function applyButtonLogic(fetchedSlugs) {
       // Remove any existing event listeners
       button.removeEventListener("click", handleMatchAction);
 
-      if (button.classList.contains("match-add-button")) {
+      if (button.classList.contains("match-add-button") || button.classList.contains("upcoming-match-add-button")) {
         if (slugExists) {
           button.disabled = true;
           button.style.display = "none";
@@ -79,7 +75,7 @@ function applyButtonLogic(fetchedSlugs) {
             this.style.display = "none";
           });
         }
-      } else if (button.classList.contains("match-publish-button")) {
+      } else if (button.classList.contains("match-publish-button") || button.classList.contains("upcoming-match-publish-button")) {
         if (slugExists) {
           button.disabled = true;
           button.textContent = "Published";
@@ -89,7 +85,7 @@ function applyButtonLogic(fetchedSlugs) {
             handleMatchAction(this.dataset.key, "publish");
           });
         }
-      } else if (button.classList.contains("match-update-button")) {
+      } else if (button.classList.contains("match-update-button") || button.classList.contains("upcoming-match-update-button")) {
         if (slugExists) {
           button.disabled = false;
           button.style.display = "";
@@ -104,52 +100,66 @@ function applyButtonLogic(fetchedSlugs) {
     });
 }
 
+const activeRequests = new Set();
+
 function handleMatchAction(key, actionType) {
-  const data = {
-    action: "matches_action",
-    action_type: actionType,
-    key: key,
-    nonce: sports_manager.nonce,
-  };
-  const params = new URLSearchParams(data);
-  fetch(sports_manager.ajax_url, {
+  if (activeRequests.has(key)) {
+    return;
+  }
+
+  activeRequests.add(key);
+
+  const requestId = Date.now().toString();
+  const data = new FormData();
+  data.append("action", "matches_action");
+  data.append("action_type", actionType);
+  data.append("key", key);
+  data.append("nonce", spoRts_manager.nonce);
+  data.append("request_id", requestId);
+
+  fetch(spoRts_manager.ajax_url, {
     method: "POST",
-    body: params,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
+    body: data,
+    credentials: "same-origin",
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        return response.text().then((text) => {
+          throw new Error(`HTTP error! Status: ${response.status}, Body: ${text}`);
+        });
       }
-      return response.text();
+      return response.json();
     })
-    .then((text) => {
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch (e) {
-        data = { success: true, data: { message: text } };
+    .then((data) => {
+      if (data.success) {
+        let message = data.data.message || "Operation completed successfully";
+        let actions = data.data.actions || [];
+        let detailedMessage = `${message}\n\nActions performed:`;
+        actions.forEach((action, index) => {
+          detailedMessage += `\n${index + 1}. ${action}`;
+        });
+        aleRt(detailedMessage);
+      } else {
+        let errorMessage = `Error: ${data.data ? data.data.message : 'Unknown error'}`;
+        if (data.data && data.data.actions) {
+          errorMessage += "\n\nActions performed:";
+          data.data.actions.forEach((action, index) => {
+            errorMessage += `\n${index + 1}. ${action}`;
+          });
+        }
+        console.error("Error details:", data); // Log error details for debugging
+        aleRt(errorMessage);
       }
-
-      // Display alert to the user
-      let message = data.success ? "Success: " : "Error: ";
-      message += data.data.message;
-      alert(message);
     })
     .catch((error) => {
-      console.error("Error details:", error);
-      alert("Error: " + error.message);
-      console.log("Action type:", actionType);
-      console.log("Slug:", slug);
+      console.error("Fetch error:", error); // Log the full error for debugging
+      aleRt("An error occurred while processing your request. Please check the console for more details.");
+    })
+    .finally(() => {
+      activeRequests.delete(key);
     });
 }
 
-///////TORUNAMENTS///////
-/**
- * Add event listeners to buttons in the Tournaments table to handle actions
- */
 function applyButtonLogicTournaments(fetchedTournaments) {
   if (!Array.isArray(fetchedTournaments)) {
     console.error("fetchedTournaments is not an array:", fetchedTournaments);
@@ -165,7 +175,7 @@ function applyButtonLogicTournaments(fetchedTournaments) {
       const slugExists = lowerCaseFetchedSlugs.includes(buttonSlug);
 
       // Remove any existing event listeners
-      button.removeEventListener("click", handleTournamentAction);
+      button.removeEventListener("click", handleTournamentActionWrapper);
 
       if (button.classList.contains("tournament-add-button")) {
         if (slugExists) {
@@ -174,10 +184,7 @@ function applyButtonLogicTournaments(fetchedTournaments) {
         } else {
           button.disabled = false;
           button.style.display = "";
-          button.addEventListener("click", function () {
-            handleTournamentAction(this.dataset.id, "add");
-            this.style.display = "none";
-          });
+          button.addEventListener("click", handleTournamentActionWrapper);
         }
       } else if (button.classList.contains("tournament-publish-button")) {
         if (slugExists) {
@@ -185,17 +192,13 @@ function applyButtonLogicTournaments(fetchedTournaments) {
           button.textContent = "Published";
         } else {
           button.disabled = false;
-          button.addEventListener("click", function () {
-            handleTournamentAction(this.dataset.id, "publish");
-          });
+          button.addEventListener("click", handleTournamentActionWrapper);
         }
       } else if (button.classList.contains("tournament-update-button")) {
         if (slugExists) {
           button.disabled = false;
           button.style.display = "";
-          button.addEventListener("click", function () {
-            handleTournamentAction(this.dataset.id, "update");
-          });
+          button.addEventListener("click", handleTournamentActionWrapper);
         } else {
           button.disabled = true;
           button.style.display = "none";
@@ -204,44 +207,100 @@ function applyButtonLogicTournaments(fetchedTournaments) {
     });
 }
 
-function handleTournamentAction(id, actionType) {
+function handleTournamentActionWrapper(event) {
+  const button = event.currentTarget;
+  const id = button.dataset.id;
+  const actionType = button.classList.contains("tournament-add-button") ? "add" :
+                     button.classList.contains("tournament-publish-button") ? "publish" : "update";
+  handleTournamentAction(id, actionType);
+}
+
+function handleTournamentAction(id, actionType) {  
+  if (activeRequests.has(id)) {
+    console.log(`Request for id ${id} is already active. Skipping.`);
+    return;
+  }
+
+  activeRequests.add(id);
+  const requestId = Date.now().toString();
+  const data = new FormData();
+  data.append("action", "tournament_action");
+  data.append("action_type", actionType);
+  data.append("id", id);
+  data.append("nonce", spoRts_manager.nonce);
+  data.append("request_id", requestId);
+
+  fetch(spoRts_manager.ajax_url, {
+    method: "POST",
+    body: data,
+    credentials: "same-origin",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        return response.text().then((text) => {
+          console.error(`Error response body: ${text}`);
+          throw new Error(`HTTP error! Status: ${response.status}, Body: ${text}`);
+        });
+      }
+      return response.json();
+    })
+    .then((data) => {
+      if (data.success) {
+        let message = data.data.message;
+        if (typeof message === "string" && message.includes("|")) {
+          let lines = message.split("\n");
+          let formattedMessage = lines.map((line) => line.replace(/\|/g, "")).join("\n");
+          aleRt(formattedMessage);
+        } else {
+          aleRt(message);
+        }
+      } else {
+        aleRt("Error: " + (data.data.message || "Unknown error occurred"));
+      }
+    })
+    .catch((error) => {
+      console.error("Error details:", error);
+      aleRt("An error occurred while processing your request. Please try again.");
+    })
+    .finally(() => {
+      activeRequests.delete(id);
+    });
+}
+
+function fetchUpcomingMatches(unixTimestampStaRt, unixTimestampEnd) {
   const data = {
-    action: "tournament_action",
-    action_type: actionType,
-    id: id,
-    nonce: sports_manager.nonce,
+    action: "fetch_upcoming_matches",
+    nonce: spoRts_manager.nonce,
+    dateStaRt: unixTimestampStaRt,
+    dateEnd: unixTimestampEnd,
   };
   const params = new URLSearchParams(data);
-  fetch(sports_manager.ajax_url, {
+
+  return fetch(spoRts_manager.ajax_url, {
     method: "POST",
     body: params,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
   })
+    .then((response) => response.json())
     .then((response) => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+      if (response.success && Array.isArray(response.data)) {
+        return response.data;
+      } else {
+        throw new Error(response.data.message || "Error fetching upcoming matches");
       }
-      return response.text();
-    })
-    .then((text) => {
-      //console.log("Raw response:", text);
-      let data;
-      try {
-        data = JSON.parse(text);
-      } catch (e) {
-        data = { success: true, data: { message: text } };
-      }
-      // Display alert to the user
-      let message = data.success ? "Success: " : "Error: ";
-      message += data.data.message;
-      alert(message);
-    })
-    .catch((error) => {
-      console.error("Error details:", error);
-      alert("Error: " + error.message);
-      console.log("Action type:", actionType);
-      console.log("ID:", id);
     });
 }
+
+// ExpoRt functions to be used in spoRts-manager-tables.js
+document.addEventListener("DOMContentLoaded", function () {
+  window.spoRtsManager = {
+    fetchCustomPostTypeSlugs,
+    applyButtonLogic,
+    handleMatchAction,
+    applyButtonLogicTournaments,
+    handleTournamentAction,
+    fetchUpcomingMatches
+  };
+})

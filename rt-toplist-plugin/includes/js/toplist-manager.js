@@ -34,7 +34,7 @@ jQuery(document).ready(function ($) {
 
         // If toplistsValue does not exist, add a new row
         if (!rowExists) {
-          // Populate the new row after a short delay
+          // Populate the new row after a shoRt delay
           const $newLastRow = $(".acf-row:last");
           $newLastRow.find(".acf-field-65cbb4a6d6d47 input").val(toplistsValue);
           $newLastRow.find(".acf-field-65cbb4b9d6d48 textarea").val(toplistJsonValue);

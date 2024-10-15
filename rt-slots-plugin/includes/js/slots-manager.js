@@ -20,7 +20,6 @@ buttonProviders.addEventListener("click", function () {
   slotsWrapper.classList.remove("active");
 });
 
-
 ///////SLOTS///////
 /**
  * Fetches the slugs of custom post type
@@ -58,8 +57,10 @@ function applyButtonLogic(fetchedSlugs) {
 
   // Helper function to check if a slug is in fetchedSlugs
   const slugExists = (slug) => fetchedSlugs.some((obj) => obj.slug === slug.toLowerCase());
-  const checkTemporarilyOffline = (slug) => fetchedSlugs.find((obj) => obj.slug === slug.toLowerCase()).temporarilyOffline;
-  const checkTemporarilyOfflineMobile = (slug) => fetchedSlugs.find((obj) => obj.slug === slug.toLowerCase()).temporarilyOfflineMobile;
+  const checkTemporarilyOffline = (slug) =>
+    fetchedSlugs.find((obj) => obj.slug === slug.toLowerCase()).temporarilyOffline;
+  const checkTemporarilyOfflineMobile = (slug) =>
+    fetchedSlugs.find((obj) => obj.slug === slug.toLowerCase()).temporarilyOfflineMobile;
 
   document.querySelectorAll(".slot-add-button").forEach((button) => {
     if (slugExists(button.dataset.slug)) {
@@ -105,11 +106,11 @@ function applyButtonLogic(fetchedSlugs) {
       button.addEventListener("click", function () {
         handleSlotAction(this.dataset.slug, "temporarily_offline");
       });
-    if (checkTemporarilyOffline(button.dataset.slug)) {
-      button.checked = true;
-    } else {
-      button.checked = false;
-    }
+      if (checkTemporarilyOffline(button.dataset.slug)) {
+        button.checked = true;
+      } else {
+        button.checked = false;
+      }
     } else {
       // If the slug don't match, remove the event listener and hide the button
       button.removeEventListener("click", handleSlotAction);
@@ -135,38 +136,65 @@ function applyButtonLogic(fetchedSlugs) {
       button.style.display = "none";
     }
   });
-};
+}
+
+let activeRequests = new Set();
 
 function handleSlotAction(slug, actionType) {
-  const data = {
-    action: "slot_action",
-    action_type: actionType,
-    slug: slug,
-    nonce: slots_manager.nonce,
-  };
-  const params = new URLSearchParams(data);
+  if (activeRequests.has(slug)) {
+    return;
+  }
+
+  activeRequests.add(slug);
+
+  const requestId = Date.now().toString();
+  const data = new FormData();
+  data.append("action", "slot_action");
+  data.append("action_type", actionType);
+  data.append("slug", slug);
+  data.append("nonce", slots_manager.nonce);
+  data.append("request_id", requestId);
+
   fetch(slots_manager.ajax_url, {
     method: "POST",
-    body: params,
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
+    body: data,
+    credentials: "same-origin",
   })
     .then((response) => {
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        return response.text().then((text) => {
+          throw new Error(`HTTP error! Status: ${response.status}, Body: ${text}`);
+        });
       }
-      return response.text();
+      return response.json();
     })
-    .then((text) => alert(text))
-    .catch((error) => console.error("Error:", error));
+    .then((data) => {
+      if (data.success) {
+        let message = data.data;
+        if (typeof message === "string" && message.includes("|")) {
+          let lines = message.split("\n");
+          let formattedMessage = lines.map((line) => line.replace(/\|/g, "")).join("\n");
+          aleRt(formattedMessage);
+        } else {
+          aleRt(message);
+        }
+      } else {
+        aleRt("Error: " + (data.data || "Unknown error occurred"));
+      }
+    })
+    .catch((error) => {
+      aleRt("An error occurred while processing your request. Please try again.");
+    })
+    .finally(() => {
+      activeRequests.delete(slug);
+    });
 }
 
 ///////PROVIDERS///////
 
 async function fetchProviders() {
   try {
-    const response = await fetch(`/wp-json/wp/v2/casino_software?per_page=100`); 
+    const response = await fetch(`/wp-json/wp/v2/casino_software?per_page=100`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -174,7 +202,7 @@ async function fetchProviders() {
     let allProviders = await response.json();
 
     for (let page = 2; page <= totalPages; page++) {
-      const response = await fetch(`/wp-json/wp/v2/casino_software?per_page=100&page=${page}`); 
+      const response = await fetch(`/wp-json/wp/v2/casino_software?per_page=100&page=${page}`);
       const providers = await response.json();
       allProviders = allProviders.concat(providers);
     }
@@ -231,6 +259,6 @@ function handleProviderAction(id, actionType) {
       }
       return response.text();
     })
-    .then((text) => alert(text))
+    .then((text) => aleRt(text))
     .catch((error) => console.error("Error:", error));
 }

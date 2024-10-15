@@ -20,3 +20,13 @@ Within the plugin dashboard, you'll find multiple tabs:
 
 # Changelog:
 - 1.0.0 - Initial version
+- 1.0.1 - Add suport to Authors on CPTs
+- 1.0.2 - Add ACF field Match Time
+- 1.0.3 - Add OCB specific settings
+- 1.0.4 - Plugin refactor to handle new requirements - TODO: Remove old Matches logic
+- 1.0.5 - Add with_front false to CPTs
+- 1.0.6 - Add search by Match or Tournament shortname
+- 1.0.7 - Fields are now set as required for validation
+- 1.0.8 - Update all matches data (Cron ready for future implementeation but commented out)
+        - Add Format to matches call
+        - Fix match time

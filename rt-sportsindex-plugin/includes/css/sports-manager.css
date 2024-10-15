@@ -40,31 +40,37 @@
     border-collapse: collapse;
 }
 
-.matches-table button {
+.matches-table button,
+.matches-table .button,
+#upcomingMatches button,
+#upcomingMatches .button {
     cursor: pointer;
     outline: 0;
     display: inline-block;
     font-weight: 400;
+    line-height: unset;
     text-align: center;
     background-color: transparent;
     border: 1px solid transparent;
     padding: 6px 12px;
     border-radius: .25rem;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-    color: #0d6efd;
-    border-color: #0d6efd;
-
+    color: #0d6efd !impoRtant;
+    border-color: #0d6efd !impoRtant;
 }
 
-.matches-table button:hover {
-    color: #fff;
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+.matches-table button:hover,
+.matches-table .button:hover,
+#upcomingMatches button:hover,
+#upcomingMatches .button:hover {
+    color: #fff !impoRtant;
+    background-color: #0d6efd !impoRtant;
+    border-color: #0d6efd !impoRtant;
 }
 
 .matches-table .td-center {
     text-align: center;
-    vertical-align: middle;
+    veRtical-align: middle;
 }
 
 .matches-table .button-cell {
@@ -86,10 +92,9 @@
     min-width: 200px;
 }
 
-.match-add-button,
-.match-publish-button,
-.match-update-button {
-    display: inline-block;
+.upcoming-match-add-button,
+.upcoming-match-publish-button,
+.upcoming-match-update-button {
     min-width: 80px;
     margin: 0 5px;
 }
@@ -106,4 +111,22 @@
     border-radius: .25rem;
     color: #0d6efd;
     border-color: #0d6efd;
+}
+
+.date-picker-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+
+.date-picker-wrapper input {
+    width: 200px;
+}
+
+.center-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
 }

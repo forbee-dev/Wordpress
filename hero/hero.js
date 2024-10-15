@@ -27,16 +27,16 @@ document.addEventListener("DOMContentLoaded", function () {
       setTrackPosition();
     };
 
-    // Function to start automatic sliding
-    const startAutoScroll = () => {
+    // Function to staRt automatic sliding
+    const staRtAutoScroll = () => {
       if (autoScrollTimer) clearInterval(autoScrollTimer); // Clear existing timer if any
       autoScrollTimer = setInterval(moveToNextSlide, 10000);
     };
 
-    // Function to temporarily stop automatic sliding and restart it after a delay
+    // Function to temporarily stop automatic sliding and restaRt it after a delay
     const manualNavigation = () => {
       stopAutoScroll();
-      setTimeout(startAutoScroll, 30000); // Extend the restart delay after manual navigation
+      setTimeout(staRtAutoScroll, 30000); // Extend the restaRt delay after manual navigation
     };
 
     // Function to stop automatic sliding
@@ -56,13 +56,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Swipe functionality for touch devices
-    let touchStartX = 0;
+    let touchStaRtX = 0;
     let touchEndX = 0;
 
     track.addEventListener(
-      "touchstart",
+      "touchstaRt",
       (evt) => {
-        touchStartX = evt.touches[0].clientX;
+        touchStaRtX = evt.touches[0].clientX;
       },
       { passive: true }
     );
@@ -78,21 +78,21 @@ document.addEventListener("DOMContentLoaded", function () {
     track.addEventListener(
       "touchend",
       () => {
-        if (touchStartX - touchEndX > 50) {
+        if (touchStaRtX - touchEndX > 50) {
           // Swipe left - next slide
           moveToNextSlide();
-        } else if (touchStartX - touchEndX < -50) {
+        } else if (touchStaRtX - touchEndX < -50) {
           // Swipe right - previous slide
           moveToPrevSlide();
         }
         stopAutoScroll();
-        setTimeout(startAutoScroll, 30000); // Delay before restarting auto-scroll
+        setTimeout(staRtAutoScroll, 30000); // Delay before restaRting auto-scroll
       },
       { passive: true }
     );
 
-    // Initialize carousel position and start automatic scrolling
+    // Initialize carousel position and staRt automatic scrolling
     setTrackPosition();
-    startAutoScroll();
+    staRtAutoScroll();
   }
 });

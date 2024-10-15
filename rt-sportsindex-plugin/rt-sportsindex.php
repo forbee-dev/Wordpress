@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Rt SportsIndex Plugin
  * Description: Plugin that integrates with the provided API to dynamically generate and manage content for Sports. 
- * Version: 1.0.0
+ * Version: 1.0.8
  * Author: Tiago Santos
  */
 
