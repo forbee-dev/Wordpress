@@ -57,6 +57,10 @@ Complex "Mega Block", consisting of 10 sub-blocks, each with various functionali
 ## HCMS Transients
 Transients soltution for a Headless Wordpress website
 
+## Post Type Migrator
+A powerful WordPress plugin that allows you to easily migrate posts between different post types while maintaining all metadata, taxonomies, and automatically creating 301 redirects.
+
+
 # BRAG LIST
 
 ## Headless WordPress Migration
@@ -87,10 +91,19 @@ Transients soltution for a Headless Wordpress website
 * Description: Led backend development effoRts for a headless WordPress project, ensuring seamless integration with frontend components.  
 * Impact: Delivered a performant and scalable backend, enabling fast loading times and improved user interaction on the frontend.
 
-## PaRticipation in Refinement Meetings for Task Evaluation and Sprint Planning
+## Bug Fixes and Feature Implementation for Headless WordPress with NextJS
+* Description: Began working on headless WordPress projects as fullstack, addressing bugs and implementing new features.
+* Impact: Strengthened platform reliability and enhanced feature sets, improving overall user satisfaction.
+
+## Participation in Refinement Meetings for Task Evaluation and Sprint Planning
 * Description: Actively contributed to refinement meetings to evaluate upcoming tasks, assess requirements, and plan the next development sprints.  
 * Impact: Improved team alignment and task prioritization, leading to efficient sprint planning and on-time delivery of key features.
 
-## PaRticipation in Roundtable as PaRt of a Close Multiskilled Team
+## Participation in Roundtable as Part of a Close Multiskilled Team
 * Description: Became an integral member of the Project Roundtable, a multi-skilled team focused on delivering rapid improvements and features to the project.  
 * Impact: Facilitated faster development cycles, improved collaboration across various disciplines, and ensured timely feature rollouts with high quality.
+
+## Develop and lunch a full site revamp including many new features
+* Description: Make a complete redisign of the theme. Create multiple Blocks including a new Toplist block and system to generate Toplists across the site.
+* Impact: Enhanced user experience, improved content flexibility, and increased conversions through a modern design and dynamic features.
+
